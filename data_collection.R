@@ -1,7 +1,7 @@
 ##----------------------------------------------------------------------------##
-# This script fetches all csv files with historical data from several leagues
-# of 11 european countries from football-data.co.uk and combines the csv files
-# into one sqlite database.
+# This script fetches all csv files with historical data from several leagues  
+# of 11 european  countries from football-data.co.uk and combines the csv      
+# files into one sqlite database.                                              
 ##----------------------------------------------------------------------------##
 
 library(data.table)
@@ -186,7 +186,7 @@ main_leagues2$Time <- as.character(main_leagues2$Time)
 cols_num <- c(7:8, 10:11, 14:25)
 main_leagues2[cols_num] <- sapply(main_leagues2[cols_num],as.integer)
 # renaming several columns because of syntax errors
-main_leagues2 <- rename(main_leagues2, ATS = AS, HTS = HS)
+main_leagues2 <- rename(main_leagues2, ATS = AS, HTS = HS, game_date = Date)
 names(main_leagues2) <- sub(">", "o", names(main_leagues2))
 names(main_leagues2) <- sub("<", "u", names(main_leagues2))
 names(main_leagues2) <- sub("\\.", "_", names(main_leagues2))
