@@ -1,6 +1,6 @@
 ##----------------------------------------------------------------------------##
 # This script fetches all csv files with historical data from several leagues
-# of 11 european  countries from football-data.co.uk and combines the csv files
+# of 11 european countries from football-data.co.uk and combines the csv files
 # into one sqlite database.
 ##----------------------------------------------------------------------------##
 
