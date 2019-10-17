@@ -177,7 +177,7 @@ dbExecute(conn,
 dbWriteTable(conn, "leagues", leagues, append = TRUE)
 
 # create and fill table "teams"
-dbSendQuery(conn,
+dbExecute(conn,
   "CREATE TABLE teams (
     team_id INTEGER PRIMARY KEY,
     team TEXT NOT NULL
