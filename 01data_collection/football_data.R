@@ -148,7 +148,7 @@ conn <- dbConnect(SQLite(), "football.db")
 # rowid and is actually not needed in sqlite 
 countries <-  as.data.frame(sort(unique(leagues$country)))
 colnames(countries) <- "country"
-dbSendQuery(conn,
+dbExecute(conn,
   "CREATE TABLE countries (
     country_id INTEGER PRIMARY KEY,
     country TEXT NOT NULL
@@ -163,7 +163,7 @@ leagues <- select(leagues, country_id, league, fd_league)
 
 # create table leagues
 part_of_query <- col_names_types(leagues)
-dbSendQuery(conn,
+dbExecute(conn,
   paste0(
     "CREATE TABLE leagues (
       league_id INTEGER PRIMARY KEY, ",
@@ -216,7 +216,7 @@ names(main_leagues) <- sub("<", "u", names(main_leagues))
 names(main_leagues) <- sub("\\.", "_", names(main_leagues))
 # creating part of the query
 part_of_query <- col_names_types(main_leagues)
-dbSendQuery(conn,
+dbExecute(conn,
   paste0(
     "CREATE TABLE games (
       game_id INTEGER PRIMARY KEY, ",
@@ -229,4 +229,5 @@ dbSendQuery(conn,
   )
 )
 dbWriteTable(conn, "games", main_leagues, append = TRUE)
+dbDisconnect(conn)
 rm(list = ls())
