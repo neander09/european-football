@@ -7,6 +7,7 @@ library(lubridate)
 library(readr)
 library(rvest)
 
+# function collects a table with market values for a specified date
 get_table <- function(date) {
   url_tbls <- paste0(
     url,
@@ -34,6 +35,9 @@ date_options <- unlist(lapply(date_options, html_text))
 date_options <- dmy(date_options)
 date_options <- as.character(date_options)
 
+# 'looping' over the date_options vector for which market values are 
+# available. After creating a list of data frames these tables are combined in a
+# single df
 my_data <- lapply(date_options, get_table)
 market_values_liga <- bind_rows(my_data)
 
