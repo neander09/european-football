@@ -42,8 +42,8 @@ col_names_types <- function(df) {
   field_types <- toupper(ifelse(field_types == "character", "text", field_types))
   field_types <- ifelse(field_types == "NUMERIC", "REAL", field_types)
   field_types <- paste(field_names, field_types, sep = " ")
-  part_of_query <- paste(field_types, collapse = ", ")
-  return(part_of_query)
+  part_stmnt <- paste(field_types, collapse = ", ")
+  return(part_stmnt)
 }
 
 # function that returns information about the countries and their corresponding
@@ -162,12 +162,12 @@ leagues <- left_join(leagues, countries, by = "country")
 leagues <- select(leagues, country_id, league, fd_league)
 
 # create table leagues
-part_of_query <- col_names_types(leagues)
+part_stmnt <- col_names_types(leagues)
 dbExecute(conn,
   paste0(
     "CREATE TABLE leagues (
       league_id INTEGER PRIMARY KEY, ",
-      part_of_query,
+      part_stmnt,
       ",
       FOREIGN KEY (country_id)
         REFERENCES countries (country_id)
@@ -215,12 +215,12 @@ names(main_leagues) <- sub(">", "o", names(main_leagues))
 names(main_leagues) <- sub("<", "u", names(main_leagues))
 names(main_leagues) <- sub("\\.", "_", names(main_leagues))
 # creating part of the query
-part_of_query <- col_names_types(main_leagues)
+part_stmnt <- col_names_types(main_leagues)
 dbExecute(conn,
   paste0(
     "CREATE TABLE games (
       game_id INTEGER PRIMARY KEY, ",
-      part_of_query,
+      part_stmnt,
       ",
       FOREIGN KEY (league_id) REFERENCES leagues (league_id),
       FOREIGN KEY (hometeam_id) REFERENCES teams (team_id),
