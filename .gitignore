@@ -1,3 +1,9 @@
 # database #
 ############
 football.db
+
+# R files #
+###########
+*.Rhistory
+.Rproj.user
+
