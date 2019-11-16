@@ -1,0 +1,7 @@
+name: "european-football"
+navbar:
+  title: "European Football"
+  left:
+  - text: "Home"
+    href: index.html
+
