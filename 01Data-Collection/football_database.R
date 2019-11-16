@@ -11,7 +11,7 @@ conn <- dbConnect(SQLite(), "football.db")
 # fetch the 'leagues' table
 leagues_db <- dbReadTable(conn, "leagues")
 # add column with official league name to the 'leagues' table
-dbGetQuery(conn,
+dbExecute(conn,
   "ALTER TABLE leagues ADD COLUMN official_name TEXT"
 )
 leagues_newinfo <- left_join(leagues_db, leagues, by = "fd_league")
@@ -23,7 +23,7 @@ dbExecute(conn,
   params = leagues_offname
 )
 # add column with transfermarkt.de abbreviation for league 
-dbGetQuery(conn,
+dbExecute(conn,
  "ALTER TABLE leagues ADD COLUMN tm_short TEXT"
 )
 leagues_tmshort <- select(leagues_newinfo, fd_league, tm_short)
@@ -76,7 +76,7 @@ missing_results
 
 # change full time score for Panathinaikos v Olympiakos on March 17th, 2019
 dbExecute(conn,
-          "UPDATE games
+  "UPDATE games
   SET
     (FTHG, FTAG, FTR, HTHG, HTAG, HTR)
     = ('0', '3', 'A', NULL, NULL, NULL)
